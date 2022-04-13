@@ -6,7 +6,7 @@
 
 <script>
 
-import task from "./components/tast.vue"
+import task from "./components/test.vue"
 
 export default {
   name: 'App',

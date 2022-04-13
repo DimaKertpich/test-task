@@ -122,12 +122,6 @@ export default{
     },
 
     async beforeMount(){
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    //   .then(function(responce){
-    //     responce.json().then(function(data){
-    //       console.log(data)
-    //     })
-    //   })
 
     let responce = await fetch('https://jsonplaceholder.typicode.com/users');
 
@@ -138,6 +132,7 @@ export default{
 
 
         this.checkLang = document.querySelector('.task .task__list h3').innerHTML;
+
     },
 
 
