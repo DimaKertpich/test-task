@@ -1,9 +1,9 @@
 <template>
 
-    <section dir="rtl" class="task">
+    <section :dir="checkHebrew" class="task">
             <div class="task__partialData">
                     <div class="task__list">
-                        <h3>List</h3>
+                       <h3>List</h3>
                     </div>
                 <div :key="index" v-for="(user ,index) in arrayUsers" class="task__users">
                     <div class="task__users-data">
@@ -50,7 +50,7 @@
                         </p></span>                   
                     </div>
                     <div class="task__details-phone">
-                        <h3>Phone</h3>
+                        <h3>?מָה עָשָׂה שׁחר</h3>
                         <p>{{ data.phone }}</p>
                     </div>
                     <div class="task__details-website">
@@ -68,7 +68,7 @@
                 
                 </div>
             </div>
-
+    
     </section>
 
 </template>
@@ -81,7 +81,15 @@ export default{
             arrayUsers: [],
             activeErr: false,
             currentInformation: 0,
-            activeDetalis: false
+            activeDetalis: false,
+            pattern: /[\u0590-\u05FF]/,
+            checkLang: null
+        }
+    },
+
+    computed:{
+        checkHebrew(){   
+            return this.pattern.test(this.checkLang) ? 'rtl' : 'ltr'
         }
     },
 
@@ -98,6 +106,19 @@ export default{
            this.activeDetalis = true
            this.currentInformation = index
        }
+
+    //    checkHebrew(){
+    //        let Hebrew = document.querySelector('.task .task__list h3').innerHTML;
+    //         console.log(Hebrew)
+    //        if(this.pattern.test(Hebrew)){
+    //            console.log(1)
+    //            return 'rtl'
+    //        }else{
+    //            console.log(2)
+    //            return 'ltr'
+    //        }
+    //    }
+
     },
 
     async beforeMount(){
@@ -114,7 +135,12 @@ export default{
             this.getUsers = await responce.json();
             this.arrayUsers = this.getUsers.slice(0 , 5)
         }
-    }
+
+
+        this.checkLang = document.querySelector('.task .task__list h3').innerHTML;
+    },
+
+
 }
 
 </script>
